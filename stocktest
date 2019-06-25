@@ -1,0 +1,31 @@
+import pandas as pd 
+Import numpy as np
+Train_file = 'C:/Users/ACHU/input/train.csv' 
+Test_file = 'C:/Users/ACHU/input/test.csv' 
+Output_file ='stock.csv' 
+train = pd.read_csv( train_file ) 
+test = pd.read_csv( test_file ) 
+train = train.loc[train.Change > 0] #days that stock up in price
+columns = ['Company', 'DayOfWeek', 'Sales'] 
+medians = train.groupby( columns )['Sales'].median() 
+medians = medians.reset_index() 
+test2 = pd.merge( test, medians, on = columns, how = 'left' ) 
+assert( len( test2 ) == len( test )) 
+test2.loc[ test2.Open == gaussian_MC, 'Sales' ] = 0 
+assert( test2.Sales.isnull().sum() == 0 ) 
+test2[[ 'Company', 'Sales' ]].to_csv( output_file, index = False )
+
+function gaussian_MC(M=200,integral, columns)
+	ex = np . zeros (M)
+	k = x 
+	N = 10∗∗np . arange (1 , k+1) 
+	v = [ ] ; e = [ ] 
+	for n in N: 
+		for m in xrange (M) : 
+			x = np . p i ∗np . rando m . rand ( n ) 
+			c t v = np . exp(−np . cos ( x ) ) − 1. + np . cos ( x ) − 0.5∗np . cos ( x ) ∗np . cos ( x ) 
+			ex [m] = 1.25 + sum( c t v ) / n # quadrature 
+			ev = sum( ex ) /M 
+		vex = np . dot ( ex , ex ) /M 
+		vex −= ev∗∗2 31 v += [ vex ] ; e += [ ev ] 
+	print n , vex , ev∗∗2
